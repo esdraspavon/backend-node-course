@@ -9,9 +9,13 @@ module.exports = function (injectredStore){
   function list() {
     return store.list(TABLA);
   }
+  function get(id) {
+    return store.get(TABLA, id);
+  }
   
   return {
     list,
+    get,
   }
 }
 // module.exports = {

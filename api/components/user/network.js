@@ -10,11 +10,19 @@ router.get('/', function(req, res) {
     .then((lista) => {
       response.succes(req, res, lista, 200);
     })
+    .catch((err) => {
+      response.error(req, res, err.message, 500);
+    })
 });
 
 router.get('/:id', function(req, res) {
-  const user = Controller.get(req.params.id);
-  response.succes(req, res, user, 200);
+  Controller.get(req.params.id)
+  .then((user) => {
+    response.succes(req, res, user, 200);
+  })
+  .catch((err) => {
+    response.error(req, res, err.message, 500);
+  })
 });
 
 module.exports = router;
