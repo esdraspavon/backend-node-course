@@ -5,6 +5,17 @@ module.exports = function(injectredStore) {
   if (!store) {
     store = require("../../../store/dummy");
   }
+
+  async function login(username, password) {
+    const data = await store.query(TABLA, {username: username});
+    if (data.password === password) {
+      //Generar token;
+      return 'TOKEN';
+    } else {
+      throw new Error('Información inválida');
+    }
+  }
+
   function upsert(data) {
     const authData = {
       id: data.id,
@@ -23,5 +34,6 @@ module.exports = function(injectredStore) {
 
   return {
     upsert,
+    login,
   }
 }
