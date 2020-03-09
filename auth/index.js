@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const error = require('../utils/error');
 
 const secret = config.jwt.secret;
 
@@ -15,7 +16,7 @@ const check = {
   own: function(req, owner) {
     const decoded = decodeHeader(req);
     if(decoded.id !== owner) {
-      throw new Error('No tienes los permisos necesarios');
+      throw error('No tienes los permisos necesarios', 401);
     }
   }
 }
