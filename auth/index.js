@@ -23,10 +23,10 @@ const check = {
 
 function getToken(auth) {
   if(!auth) {
-    throw new Error('No hay token');
+    throw error('No hay token', 401);
   }
   if(auth.indexOf('Bearer ') === -1) {
-    throw new Error('Formato de token invàlido');
+    throw error('Formato de token inválido', 401);
   }
   let token = auth.replace('Bearer ', '');
 
