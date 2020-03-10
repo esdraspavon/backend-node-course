@@ -15,7 +15,10 @@ module.exports = function(injectredStore) {
         .then(equals => {
           if (equals) {
             //Generar token;
-            return auth.sign(data);
+            console.log("generando token");
+            const token = auth.sign({...data})
+            console.log(token);
+            return token;
           } else {
             throw new Error('Información inválida');
           }

@@ -8,7 +8,6 @@ const dbConfig = {
   password: config.mysql.password,
   database: config.mysql.database,
 };
-console.log(dbConfig);
 let connection;
 
 function handleCon() {
@@ -45,6 +44,47 @@ function list(table) {
   })
 }
 
+function get(table, id) {
+  return new Promise((resolve, reject) => {
+    connection.query(`Select * FROM ${table} WHERE id=${id}`, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    })
+  })
+}
+
+function insert(table, data) {
+  return new Promise((resolve, reject) => {
+    connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
+      if (err) return reject(err)
+      resolve(result);
+    })
+  })
+}
+
+function upsert(table, data) {
+  return new Promise((resolve, reject) => {
+    connection.query(`INSERT INTO ${table} SET ? ON DUPLICATE KEY UPDATE ?`, [data, data], (error, data) => {
+      console.log('UPDATE DATA: ', data)
+      if (error) {
+        return reject(error)
+      }
+      resolve(data);
+    })
+  })
+}
+function query (table, query) {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, data) => {
+      if (err) return reject(err)
+      resolve(data[0] || null);
+    })
+  })
+}
+
 module.exports = {
   list,
+  get,
+  upsert,
+  query,
 }
