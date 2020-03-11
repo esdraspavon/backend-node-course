@@ -18,7 +18,10 @@ const check = {
     if(decoded.id !== owner) {
       throw error('No tienes los permisos necesarios', 401);
     }
-  }
+  },
+  logged: function(req) {
+    const decoded = decodeHeader(req);
+  },
 }
 
 function getToken(auth) {
