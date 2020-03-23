@@ -17,5 +17,9 @@ module.exports = {
   mysqlService: {
     host:process.env.MYSQL_SRV_HOST || 'localhost',
     port: process.env.MYSQL_SRV_PORT || 3001,
+  },
+  cacheService: {
+    port: process.env.CACHE_SRV_PORT || 3003,
+    host: process.env.CACHE_SRV_HOST || 'localhost',
   }
 };
